@@ -221,6 +221,7 @@ sudo apt-get purge thunderbird*
 ##
 
 # CLEANUP
+rm /etc/resolv.conf
 
 rm /var/lib/dbus/machine-id
 
@@ -243,7 +244,7 @@ apt-get clean
 
 rm -rf /tmp/*
 
-rm /etc/resolv.conf
+
 
 # ! error, as these are not mounted
 umount -lf /proc
