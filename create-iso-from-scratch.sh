@@ -404,7 +404,7 @@ sudo /bin/bash -c "(find . -type f -print0 | xargs -0 md5sum | grep -v -e 'md5su
 
 # Create iso from the image directory using the command-line:
 
-cd image
+cd image || exit && echo "ERROR, BREAKPOINT, DEBUG: break before xorriso, unable to cd into image"
 
 sudo xorriso \
    -as mkisofs \
