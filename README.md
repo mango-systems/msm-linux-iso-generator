@@ -16,6 +16,10 @@ chmod +x create-iso-from-scratch.sh
 # executing script
 ./create-iso-from-scratch.sh
 ```
+## NOTE, To see debootstrap releases scripts
+```bash
+ls /usr/share/debootstrap/scripts/
+```
 
 ## Clean Up
 ```bash
@@ -36,3 +40,4 @@ sudo rm -rf $your_linux_name
 
 ## Bookmarks
     https://help.ubuntu.com/community/LiveCDCustomizationFromScratch
+
