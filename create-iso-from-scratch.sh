@@ -48,6 +48,8 @@ mount none -t sysfs /sys
 mount none -t devpts /dev/pts
 export HOME=/root
 export LC_ALL=C
+# set a custom hostname
+echo $pretty_name > /etc/hostname
 
 apt-get update
 apt-get install --yes dbus
@@ -220,10 +222,28 @@ sudo apt-get purge thunderbird*
 ### +++++++======+++++++=======++++++======++++++========
 ##
 
-# CLEANUP
-rm /etc/resolv.conf
+# generate locales
+dpkg-reconfigure locales
+# reconfigure resolvconf
+dpkg-reconfigure resolvconf
+# reconfigure network-manager
+cat <<EOF > /etc/NetworkManager/NetworkManager.conf
+[main]
+rc-manager=resolvconf
+plugins=ifupdown,keyfile
+dns=dnsmasq
 
-rm /var/lib/dbus/machine-id
+[ifupdown]
+managed=false
+EOF
+dpkg-reconfigure network-manager
+
+
+# CLEANUP
+# rm /etc/resolv.conf
+truncate -s 0 /etc/machine-id
+
+# rm /var/lib/dbus/machine-id
 
 # remove diversion
 # rm /sbin/initctl
@@ -242,14 +262,16 @@ dpkg-divert --rename --remove /sbin/initctl
 # clean up
 apt-get clean
 
-rm -rf /tmp/*
+rm -rf /tmp/* ~/.bash_history
 
 
 
 # ! error, as these are not mounted
-umount -lf /proc
-umount -lf /sys
-umount -lf /dev/pts
+umount /proc
+umount /sys
+umount /dev/pts
+
+export HISTSIZE=0
 exit
 
 ### EXITED CUSTOM CD
