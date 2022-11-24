@@ -17,6 +17,14 @@ chmod +x create-iso-from-scratch.sh
 ./create-iso-from-scratch.sh
 ```
 
+## Clean Up
+```bash
+# currently in $your_linux_name base dir
+sudo chown $USER .
+cd ..
+sudo rm -rf $your_linux_name
+```
+
 ## Dependencies:
     - binutils
     - debootstrap
