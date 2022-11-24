@@ -10,7 +10,7 @@ target_release=jammy
 chroot_folder=chroot
 
 # base_asset_repo_link=
-pretty_name=msm linux
+pretty_name="msm linux"
 output_iso_name=msm-linux
 #----------main------------
 ## Setting up dependencies
