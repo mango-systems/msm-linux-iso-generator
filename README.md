@@ -1,4 +1,4 @@
-# Mango Linux ISO Generator and Customiser
+# Mango Linux ISO Generator and Customiser - Debian/Ubuntu
 Generates a customised Debian based system from create-so-from-scratch.sh script.
 ## Instructions
 ```bash
