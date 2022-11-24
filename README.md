@@ -1,8 +1,21 @@
 # Mango Linux ISO Generator and Customiser
 
 ## Instructions
-- Clone the repo
-- customise config (create-iso-from-scratch.sh) and its variables
+```bash
+# set name of your linux
+your_linux_name="custom-linux-test"
+
+git clone https://github.com/msm-linux/msm-linux-iso-generator.git $your_linux_name
+
+cd $your_linux_name
+
+## now customise ./create-iso-from-scratch.sh to fit your use
+# making script executable
+chmod +x create-iso-from-scratch.sh
+
+# executing script
+./create-iso-from-scratch.sh
+```
 
 ## Dependencies:
     - binutils
