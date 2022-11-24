@@ -3,15 +3,20 @@
 ## Run as sudo
 ## Bookmark: https://help.ubuntu.com/community/LiveCDCustomizationFromScratch
 
+# ask for sudo
+[ "$UID" -eq 0 ] || exec sudo bash "$0" "$@"
+
 ## Variables
 host_release=jammy
 
 target_release=jammy
 chroot_folder=chroot
 
+linux_grub_show_name="MSM Linux"
+
 # base_asset_repo_link=
-pretty_name="msm linux"
-output_iso_name=msm-linux
+pretty_name="msm-linux"
+output_iso_name="msm-linux"
 #----------main------------
 ## Setting up dependencies
 sudo apt-get install \
@@ -32,7 +37,7 @@ sudo cp /etc/hosts chroot/etc/hosts
 sudo cp /etc/resolv.conf chroot/etc/resolv.conf
 sudo cp /etc/apt/sources.list chroot/etc/apt/sources.list
 
-sudo sed s/$host_release/$target_release/ < /etc/apt/sources.list > chroot/etc/apt/sources.list
+sudo sed s/$host_release/$target_release/ < /etc/apt/sources.list > sudo chroot/etc/apt/sources.list
 
 
 # CHROOT ENV
@@ -97,6 +102,122 @@ apt-get install -y \
 
 ## MSM CUSTOM LINUX SCRIPTS HERE
 ### +++++++======+++++++=======++++++======++++++========
+
+apt update
+apt-get update
+
+add-apt-repository multiverse -y
+add-apt-repository restricted -y
+add-apt-repository universe -y
+dpkg --add-architecture i386 
+apt update
+apt-get update
+
+
+apt-get install chrome-gnome-shell chome-gnome-shell-pref
+#setup flatpak
+apt install -y flatpak
+apt install gnome-software-plugin-flatpak
+su - $SUDO_USER -c "flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo"
+
+#installing important utilities
+apt install os-prober
+
+# removing snap
+
+snap remove --purge firefox
+snap remove --purge snap-store
+snap remove --purge gnome-3-38-2004
+
+snap remove --purge gtk-common-themes
+snap remove --purge snapd-desktop-integration
+snap remove --purge bare
+snap remove --purge core20
+snap remove --purge snapd
+
+apt remove --autoremove snapd -y
+
+# nosnap config
+touch /etc/apt/preferences.d/nosnap.pref
+echo -e "Package: snapd\nPin: release a=*\nPin-Priority: -10" > /etc/apt/preferences.d/nosnap.pref
+
+apt update
+
+apt install --install-suggests gnome-software -y
+
+add-apt-repository ppa:mozillateam/ppa -y
+apt update
+apt install -t 'o=LP-PPA-mozillateam' firefox
+
+## configuring firefox to allow update
+echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:${distro_codename}";' | tee /etc/apt/apt.conf.d/51unattended-upgrades-firefox
+
+## config to prevent firefox from intall snap associated pkg
+touch /etc/apt/preferences.d/mozillateamppa
+
+tee -a /etc/apt/preferences.d/mozillateamppa <<EOF
+Package: firefox*
+Pin: release o=LP-PPA-mozillateam
+Pin-Priority: 501
+EOF
+
+
+apt install -y curl git python3 python3-pip software-properties-common ttf-mscorefonts-installer ca-certificates \
+gnome-disk-utility mpv htop neofetch openssh-server synaptic ubuntu-restricted-extras \
+dconf-editor pavucontrol blueman gnome-sushi ffmpeg ffmpegthumbnailer \
+net-tools gthumb python3-yaml tigervnc-standalone-server \
+python3-dateutil python3-pyqt5 python3-packaging python3-requests
+
+apt install webp-pixbuf-loader
+
+flatpak install flathub com.belmoussaoui.Decoder com.github.muriloventuroso.pdftricks \
+com.github.tchx84.Flatseal com.github.donadigo.appeditor \
+com.mattjakeman.ExtensionManager \
+org.gnome.Firmware \
+org.gnome.clocks de.haeckerfelix.Fragments \
+org.x.Warpinator \
+org.gnome.SoundRecorder \
+com.github.muriloventuroso.easyssh -y
+
+apt install gnome-tweaks gnome-shell-extension-gsconnect \
+gnome-shell-extension-material-shell  gnome-shell-extensions
+
+## install grub customizer
+add-apt-repository ppa:danielrichter2007/grub-customizer -y
+apt install grub-customizer
+
+## folder color nautilus extension
+add-apt-repository ppa:costales/folder-color -y
+## yaru specific
+add-apt-repository ppa:costales/yaru-colors-folder-color -y
+
+apt update
+apt-get update
+apt install folder-color yaru-colors-folder-color
+apt-get install folder-color
+
+apt install nautilus-admin
+
+# install deb-get
+curl -sL https://raw.githubusercontent.com/wimpysworld/deb-get/main/deb-get | sudo -E bash -s install deb-get
+# install vs-code using deb-get
+deb-get update
+deb-get install code #use codium for OSS
+
+## install nerd font
+
+cd $HOME/Downloads && echo "[-] Download fonts [-]" && \
+su - $SUDO_USER -c "echo \"https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/DroidSansMono.zip\" && \
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/DroidSansMono.zip && \
+unzip DroidSansMono.zip -d ~/.fonts && \
+fc-cache -fv"
+
+# removing pkgs (bloats)
+apt purge eog totem
+sudo apt-get purge thunderbird*
+
+
+### +++++++======+++++++=======++++++======++++++========
 ##
 
 # CLEANUP
@@ -107,7 +228,7 @@ rm /var/lib/dbus/machine-id
 rm /sbin/initctl
 dpkg-divert --rename --remove /sbin/initctl
 
-# Remove upgraded, old linux-kernels if more than one: 
+# Remove upgraded, old linux-kernels if more than one: (FOR FAILSAFE, may throw error)
 ls /boot/vmlinuz-2.6.**-**-generic > list.txt
 sum=$(cat list.txt | grep '[^ ]' | wc -l)
 
@@ -124,6 +245,7 @@ rm -rf /tmp/*
 
 rm /etc/resolv.conf
 
+# ! error, as these are not mounted
 umount -lf /proc
 umount -lf /sys
 umount -lf /dev/pts
@@ -163,12 +285,12 @@ insmod all_video
 set default="0"
 set timeout=30
 
-menuentry "Try Ubuntu FS without installing" {
+menuentry "Try $linux_grub_show_name without installing" {
    linux /casper/vmlinuz boot=casper nopersistent toram quiet splash ---
    initrd /casper/initrd
 }
 
-menuentry "Install Ubuntu FS" {
+menuentry "Install $linux_grub_show_name" {
    linux /casper/vmlinuz boot=casper only-ubiquity quiet splash ---
    initrd /casper/initrd
 }
@@ -283,3 +405,5 @@ sudo xorriso \
       "."
 
 ## NOTE: file may not be accessible to local user as created by sudo run chown then
+cd ..
+sudo chown $USER $output_iso_name.iso 
