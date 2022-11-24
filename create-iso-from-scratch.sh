@@ -403,6 +403,9 @@ cat /usr/lib/grub/i386-pc/cdboot.img isolinux/core.img > isolinux/bios.img
 sudo /bin/bash -c "(find . -type f -print0 | xargs -0 md5sum | grep -v -e 'md5sum.txt' -e 'bios.img' -e 'efiboot.img' > md5sum.txt)"
 
 # Create iso from the image directory using the command-line:
+
+cd image
+
 sudo xorriso \
    -as mkisofs \
    -iso-level 3 \
