@@ -278,7 +278,7 @@ exit
 
 # If you also bound your /dev to the chroot, you should unbind that. 
 # sudo umount /chroot/dev
-workdir=pwd
+workdir=$PWD
 
 sudo umount $workdir/chroot/dev
 sudo umount $workdir/chroot/run
