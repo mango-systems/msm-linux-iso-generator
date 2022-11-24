@@ -23,6 +23,8 @@ ls /usr/share/debootstrap/scripts/
 
 ## Clean Up
 ```bash
+## terminal param set: (default)
+# $ your_linux_name="custom-linux-test"
 # currently in $your_linux_name base dir
 sudo chown $USER .
 cd ..

@@ -9,7 +9,7 @@
 ## Variables
 host_release=jammy
 
-target_release=jammy
+target_release=kinetic
 chroot_folder=chroot
 
 linux_grub_show_name="MSM Linux"
