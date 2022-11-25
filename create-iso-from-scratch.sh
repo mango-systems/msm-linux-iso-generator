@@ -41,7 +41,7 @@ sudo sed s/$host_release/$target_release/ < /etc/apt/sources.list > sudo chroot/
 
 
 # CHROOT ENV
-sudo chroot $chroot_folder "$SHELL" -i || echo "ERROR: unable to CHROOT" && exit
+sudo chroot $chroot_folder "$SHELL" -i || { echo "ERROR: unable to CHROOT"; exit }
 
 mount none -t proc /proc
 mount none -t sysfs /sys
