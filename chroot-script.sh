@@ -171,6 +171,38 @@ wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/DroidSansM
 unzip DroidSansMono.zip -d ~/.fonts && \
 fc-cache -fv"
 
+
+## INSTALLING GTK THEME - NEPHRITE
+# NOTE: To enable theme, configure dconf override
+# mkdir /tmp
+cd /tmp
+git clone https://github.com/vinceliuice/Jasper-gtk-theme.git
+cd Jasper-gtk-theme
+chmod +x install.sh
+./install.sh
+
+### INSTALLING ICON THEME
+## Colloid icon theme
+# cd /tmp
+# git clone https://github.com/vinceliuice/Colloid-icon-theme.git
+# cd Colloid-icon-theme 
+# chmod +x install.sh
+# ./install.sh  --theme teal --scheme default
+
+## Reversal icon theme
+cd /tmp
+git clone https://github.com/yeyushengfan258/Reversal-icon-theme.git
+cd Reversal-icon-theme
+chmod +x install.sh
+./install.sh
+
+### Installing extensions
+
+
+
+
+
+
 # removing pkgs (bloats)
 apt purge eog totem
 sudo apt-get purge thunderbird*

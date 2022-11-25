@@ -1,0 +1,82 @@
+[org.gnome.desktop.session]
+session-name = "ubuntu"
+
+[org.gnome.login-screen]
+logo=''
+
+[org.gnome.desktop.wm.preferences]
+button-layout = ':minimize,maximize,close'
+titlebar-font = 'Rubik Regular 10'
+
+[org.gnome.settings-daemon.plugins.power]
+sleep-inactive-ac-type = 'nothing'
+sleep-inactive-battery-type = 'nothing'
+
+[org.gnome.nautilus.icon-view]
+captions = ['detailed_type', 'date_modified', 'none']
+
+[org.gnome.desktop.interface]
+clock-format='12h'
+clock-show-seconds=true
+color-scheme='prefer-dark'
+gtk-theme='Nephrite-Dark'
+icon-theme='Reversal-purple-dark'
+locate-pointer=true
+show-battery-percentage=true
+font-name='Rubik 11'
+enable-hot-corners=true
+
+[org.gnome.desktop.sound]
+allow-volume-above-100-percent=true
+
+[org.gnome.desktop.peripherals.touchpad:ubuntu]
+tap-to-click = true
+click-method = 'default'
+natural-scroll=true
+
+[org.gnome.desktop.background:ubuntu]
+picture-uri='file:///usr/share/backgrounds/mandelbrot/mandelbrot_full_lavender.png'
+picture-uri-dark="file:///usr/share/backgrounds/mandelbrot/mandelbrot_full_lavender.png"
+show-desktop-icons = true
+
+[org.gnome.desktop.background:GNOME-Greeter]
+picture-uri='file:///usr/share/backgrounds/solids/blue.png'
+picture-uri-dark="file:///usr/share/backgrounds/solids/blue.png"
+
+[org.gnome.desktop.datetime]
+automatic-timezone=true
+
+[org.gnome.shell:ubuntu]
+disable-user-extensions=false
+enabled-extensions=['ubuntu-dock@ubuntu.com', 'user-theme@gnome-shell-extensions.gcampax.github.com','sound-output-device-chooser@kgshank.net', 'caffeine@patapon.info']
+favorite-apps=['firefox.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Software.desktop', 'org.gnome.Terminal.desktop', 'org.gnome.DiskUtility.desktop', 'ubiquity.desktop', 'code.desktop', 'com.github.hakand34.system-monitoring-center.desktop']
+
+[org.gnome.shell.extensions.ding]
+start-corner='top-left'
+
+[org.gnome.Cheese]
+countdown=false
+
+[org.gnome.mutter:ubuntu]
+attach-modal-dialogs = true
+edge-tiling = true
+dynamic-workspaces = true
+workspaces-only-on-primary = true
+focus-change-on-pointer-rest = true
+
+[org.gnome.gthumb.image-viewer]
+zoom-change='fit-size'
+
+[org.gnome.settings-daemon.plugins.media-keys]
+calculator=['<Super>c']
+control-center=['<Super>i']
+home=['<Super>e']
+play=['<Super>k']
+search=['<Alt>space']
+
+[org.gnome.shell.extensions.caffeine:ubuntu]
+user-enabled=true
+
+[org.gnome.desktop.wm.keybindings:ubuntu]
+switch-windows=['<Alt>Tab']
+switch-applications=[]
