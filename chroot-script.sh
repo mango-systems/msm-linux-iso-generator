@@ -222,10 +222,10 @@ apt-get clean
 rm -rf /tmp/* ~/.bash_history
 
 
-
+# [CONFUSION]
 # ! error, as these are not mounted
-umount /proc
-umount /sys
-umount /dev/pts
+# umount /proc
+# umount /sys
+# umount /dev/pts
 
 export HISTSIZE=0
