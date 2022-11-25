@@ -299,7 +299,7 @@ REALEND
 # CONFUSION: should i run this is chroot script? or main script?
 for i in dev/pts proc sys dev
 do
-    umount -$chroot_folder/$i
+    sudo umount -$chroot_folder/$i
 done
 
 # exit
@@ -434,7 +434,7 @@ sudo /bin/bash -c "(find . -type f -print0 | xargs -0 md5sum | grep -v -e 'md5su
 
 # Create iso from the image directory using the command-line:
 
-cd image || exit && echo "ERROR, BREAKPOINT, DEBUG: break before xorriso, unable to cd into image"
+cd image || { echo "ERROR: xorriso" && exit }
 
 sudo xorriso \
    -as mkisofs \
