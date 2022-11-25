@@ -58,7 +58,7 @@ done
 
 #anything inside the loop will run in chroot
 #CHROOT (pipe)
-cat << EOF | sudo chroot $chroot_folder
+cat << REALEND | sudo chroot $chroot_folder
 
 #!/bin/bash
 
@@ -292,7 +292,8 @@ rm -rf /tmp/* ~/.bash_history
 
 export HISTSIZE=0
 
-EOF
+REALEND
+
 
 
 # CONFUSION: should i run this is chroot script? or main script?
