@@ -376,12 +376,19 @@ EOF
 
 ## CREATE MANIFEST:
 sudo chroot $chroot_folder dpkg-query -W --showformat='${Package} ${Version}\n' | sudo tee image/casper/filesystem.manifest
-sudo cp -v image/casper/filesystem.manifest image/casper/filesystem.manifest-desktop
-sudo sed -i '/ubiquity/d' image/casper/filesystem.manifest-desktop
-sudo sed -i '/casper/d' image/casper/filesystem.manifest-desktop
-sudo sed -i '/discover/d' image/casper/filesystem.manifest-desktop
-sudo sed -i '/laptop-detect/d' image/casper/filesystem.manifest-desktop
-sudo sed -i '/os-prober/d' image/casper/filesystem.manifest-desktop
+# sudo cp -v image/casper/filesystem.manifest image/casper/filesystem.manifest-desktop
+# sudo sed -i '/ubiquity/d' image/casper/filesystem.manifest-desktop
+# sudo sed -i '/casper/d' image/casper/filesystem.manifest-desktop
+# sudo sed -i '/discover/d' image/casper/filesystem.manifest-desktop
+# sudo sed -i '/laptop-detect/d' image/casper/filesystem.manifest-desktop
+# sudo sed -i '/os-prober/d' image/casper/filesystem.manifest-desktop
+
+for pkgs_to_remove in ubiquity casper discover laptop-detect os-prober
+do
+   # sudo sed -i "/${pkgs_to_remove}/d" image/casper/filesystem.manifest
+   sudo sed -i "/${pkgs_to_remove}/d" image/casper/filesystem.manifest-desktop
+   # echo ${pkgs_to_remove}
+done
 
 ## COMPRESS THE CHROOT
 # create squashfs
