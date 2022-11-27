@@ -73,7 +73,8 @@ rm $chroot_folder/chroot-script.sh
 # CONFUSION: should i run this is chroot script? or main script?
 for i in dev/pts proc sys dev
 do
-    sudo umount -$chroot_folder/$i
+   #  sudo umount -$chroot_folder/$i
+    sudo umount $chroot_folder/$i
 done
 
 # exit
