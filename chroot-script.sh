@@ -55,9 +55,8 @@ apt-get install -y \
 
 ## SETUP DE / Window Manager (CUSTOM)
 apt-get install -y \
-    plymouth-theme-ubuntu-logo \
-    ubuntu-gnome-desktop \
-    ubuntu-gnome-wallpapers
+    ubuntu-gnome-desktop
+    # ubuntu-gnome-wallpapers
 
 ## MSM CUSTOM LINUX SCRIPTS HERE
 ### +++++++======+++++++=======++++++======++++++========
