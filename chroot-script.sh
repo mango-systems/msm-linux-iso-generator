@@ -274,7 +274,7 @@ sudo update-initramfs -u
 # config skel folder for default files
 # setup ocs-url (NOT NOW)
 
-# ERROR: current wallpaper is too big > 200MB, which is bloat. reduce it...
+# ERROR: current wallpaper is too big > 200MB, which is bloat. reduce it..., DONE
 
 # CREATE MANIFEST: https://help.ubuntu.com/community/LiveCDCustomizationFromScratch, in create-iso.....sh
 
