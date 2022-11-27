@@ -273,6 +273,8 @@ sudo update-initramfs -u
 # config skel folder for default files
 # setup ocs-url (NOT NOW)
 
+# ERRORS are there, check screenshot folder
+
 # ERROR: current wallpaper is too big > 200MB, which is bloat. reduce it..., DONE
 
 # CREATE MANIFEST: https://help.ubuntu.com/community/LiveCDCustomizationFromScratch, in create-iso.....sh
@@ -287,7 +289,7 @@ cd /tmp
 git clone https://github.com/msm-linux/grub2-themes-mango-customised.git custom-grub
 cd custom-grub
 chmod +x ./install.sh
-sudo ./install.sh -s 1080p -t vimix -i vimix
+sudo ./install.sh -s 1080p -t vimix -i white
 
 # installing RUBIK font
 cd /tmp
