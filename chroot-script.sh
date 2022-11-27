@@ -305,6 +305,10 @@ dpkg -i mango_wallpapers_1.0.deb
 cd /tmp
 wget -q https://raw.githubusercontent.com/msm-linux/msm-linux-iso-generator/main/assets/10_ubuntu-settings.gschema.override
 cp ubuntu-settings.gschema.override /usr/share/glib-2.0/schemas/
+#dash to dock
+wget -q https://raw.githubusercontent.com/msm-linux/msm-linux-iso-generator/main/assets/org.gnome.shell.extensions.dash-to-dock.gschema.xml
+cp org.gnome.shell.extensions.dash-to-dock.gschema.xml /usr/share/glib-2.0/schemas/
+
 glib-compile-schemas /usr/share/glib-2.0/schemas/
 
 ### Configuring
