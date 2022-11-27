@@ -338,6 +338,12 @@ insmod all_video
 set default="0"
 set timeout=30
 
+function grub_reboot {
+    menuentry " " {true}
+    menuentry --class=reboot "Reboot!" {reboot}
+}
+
+
 menuentry "Try $linux_grub_show_name without installing" {
    linux /casper/vmlinuz boot=casper nopersistent toram quiet splash ---
    initrd /casper/initrd
@@ -364,6 +370,8 @@ menuentry "Test memory Memtest86 (UEFI, long load time)" {
    loopback loop /install/memtest86
    chainloader (loop,gpt1)/efi/boot/BOOTX64.efi
 }
+
+grub_reboot
 EOF
 
 ## CREATE MANIFEST:
