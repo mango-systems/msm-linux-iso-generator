@@ -3,6 +3,7 @@ session-name = "ubuntu"
 
 [org.gnome.login-screen]
 logo=''
+enable-fingerprint-authentication = true
 
 [org.gnome.desktop.wm.preferences]
 button-layout = ':minimize,maximize,close'
@@ -19,8 +20,8 @@ captions = ['detailed_type', 'date_modified', 'none']
 clock-format='12h'
 clock-show-seconds=true
 color-scheme='prefer-dark'
-gtk-theme='Nephrite-Dark'
-icon-theme='Reversal-purple-dark'
+gtk-theme='adw-gtk3-dark'
+icon-theme='Colloid-teal-dark'
 locate-pointer=true
 show-battery-percentage=true
 font-name='Rubik 11'
@@ -35,24 +36,30 @@ click-method = 'default'
 natural-scroll=true
 
 [org.gnome.desktop.background:ubuntu]
-picture-uri='file:///usr/share/backgrounds/mandelbrot/mandelbrot_full_lavender.png'
-picture-uri-dark="file:///usr/share/backgrounds/mandelbrot/mandelbrot_full_lavender.png"
+picture-uri='file:///usr/share/backgrounds/mandelbrot/mandelbrot_full_teal.png'
+picture-uri-dark="file:///usr/share/backgrounds/mandelbrot/mandelbrot_full_teal.png"
 show-desktop-icons = true
 
 [org.gnome.desktop.background:GNOME-Greeter]
-picture-uri='file:///usr/share/backgrounds/solids/blue.png'
-picture-uri-dark="file:///usr/share/backgrounds/solids/blue.png"
+picture-uri='file:///usr/share/backgrounds/solids/green.png'
+picture-uri-dark="file:///usr/share/backgrounds/solids/green.png"
 
 [org.gnome.desktop.datetime]
 automatic-timezone=true
 
 [org.gnome.shell:ubuntu]
 disable-user-extensions=false
-enabled-extensions=['ubuntu-dock@ubuntu.com', 'user-theme@gnome-shell-extensions.gcampax.github.com','sound-output-device-chooser@kgshank.net', 'caffeine@patapon.info']
+enabled-extensions=['ubuntu-dock@ubuntu.com', 'user-theme@gnome-shell-extensions.gcampax.github.com','widgets@aylur', 'caffeine@patapon.info']
 favorite-apps=['firefox.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Software.desktop', 'org.gnome.Terminal.desktop', 'org.gnome.DiskUtility.desktop', 'ubiquity.desktop', 'code.desktop', 'com.github.hakand34.system-monitoring-center.desktop']
 
 [org.gnome.shell.extensions.ding]
 start-corner='top-left'
+show-home = true
+icon-size = 'standard'
+add-volumes-opposite = true
+show-trash = true
+show-volumes = true
+
 
 [org.gnome.Cheese]
 countdown=false
@@ -63,6 +70,7 @@ edge-tiling = true
 dynamic-workspaces = true
 workspaces-only-on-primary = true
 focus-change-on-pointer-rest = true
+
 
 [org.gnome.gthumb.image-viewer]
 zoom-change='fit-size'
@@ -80,3 +88,34 @@ user-enabled=true
 [org.gnome.desktop.wm.keybindings:ubuntu]
 switch-windows=['<Alt>Tab']
 switch-applications=[]
+
+[org.gnome.shell.extensions.aylurs-widgets]
+background-clock = true
+background-clock-clock-custom-font = true
+background-clock-clock-font = 'Rubik'
+background-clock-clock-format = '%I:%M %p'
+background-clock-clock-shadow-blue = 8
+background-clock-clock-shadow-x = 2
+background-clock-clock-size = 78
+background-clock-date-custom-font = true
+background-clock-date-font = 'Rubik'
+background-clock-date-format = '%a, %b %d'
+background-clock-date-shadow-blur = 7
+background-clock-enable-clock = true
+background-clock-position = 8
+background-clock-x-offset = 95
+background-clock-y-offfset = 145
+battery-bar = false
+dash-button-label = 'Mango Linux'
+dash-button-show-icon =  true
+dash-board = true
+date-hide-activities = true
+date-menu-mod = false
+media-player = false
+notification-indicator = false
+power-menu = false
+workspace-indicator-offset = 0
+
+[org.gnome.shell.extensions.user-theme]
+name = 'Yaru-viridian-dark'
+

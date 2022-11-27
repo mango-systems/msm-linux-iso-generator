@@ -68,12 +68,12 @@ apt-get update
 add-apt-repository multiverse -y
 add-apt-repository restricted -y
 add-apt-repository universe -y
-dpkg --add-architecture i386 
+# dpkg --add-architecture i386 
 apt update
 apt-get update
 
 
-apt-get install chrome-gnome-shell chome-gnome-shell-pref
+# apt-get install chrome-gnome-shell chome-gnome-shell-pref
 #setup flatpak
 apt install -y flatpak
 apt install gnome-software-plugin-flatpak
@@ -127,19 +127,28 @@ dconf-editor pavucontrol blueman gnome-sushi ffmpeg ffmpegthumbnailer \
 net-tools gthumb python3-yaml tigervnc-standalone-server \
 python3-dateutil python3-pyqt5 python3-packaging python3-requests
 
+sudo add-apt-repository ppa:helkaluin/webp-pixbuf-loader -y
 apt install webp-pixbuf-loader
 
-flatpak install flathub com.belmoussaoui.Decoder com.github.muriloventuroso.pdftricks \
-com.github.tchx84.Flatseal com.github.donadigo.appeditor \
+flatpak install flathub \
+com.belmoussaoui.Decoder \
+com.github.tchx84.Flatseal \
+com.github.donadigo.appeditor \
 com.mattjakeman.ExtensionManager \
 org.gnome.Firmware \
-org.gnome.clocks de.haeckerfelix.Fragments \
+org.gnome.clocks \
+de.haeckerfelix.Fragments \
 org.x.Warpinator \
+io.github.fabrialberio.pinapp \
 org.gnome.SoundRecorder \
-com.github.muriloventuroso.easyssh -y
+com.github.GradienceTeam.Gradience \
+io.github.realmazharhussain.GdmSettings \
+ io.github.hakandundar34coding.system-monitoring-center \
+-y
 
-apt install gnome-tweaks gnome-shell-extension-gsconnect \
-gnome-shell-extension-material-shell  gnome-shell-extensions
+# IDEAS for flatpak apps: Time Switch, Proton up qt(gaming related), Bottles, Warpinator
+
+apt install gnome-tweaks gnome-shell-extensions
 
 ## install grub customizer
 add-apt-repository ppa:danielrichter2007/grub-customizer -y
@@ -158,6 +167,7 @@ apt-get install folder-color
 apt install nautilus-admin
 
 # install deb-get
+## PROPRIORTARY
 curl -sL https://raw.githubusercontent.com/wimpysworld/deb-get/main/deb-get | sudo -E bash -s install deb-get
 # install vs-code using deb-get
 deb-get update
@@ -172,7 +182,7 @@ unzip DroidSansMono.zip -d ~/.fonts && \
 fc-cache -fv"
 
 
-## INSTALLING GTK THEME - NEPHRITE
+## INSTALLING GTK THEME - Jasper
 # NOTE: To enable theme, configure dconf override
 # mkdir /tmp
 cd /tmp
@@ -180,27 +190,130 @@ git clone https://github.com/vinceliuice/Jasper-gtk-theme.git
 cd Jasper-gtk-theme
 chmod +x install.sh
 ./install.sh
+# Identifier: Jasper-Dark 
+
+## ADW-GTK3 theme
+cd /tmp
+# Download latest version
+curl -s https://api.github.com/repos/lassekongo83/adw-gtk3/releases/latest \
+| grep "browser_download_url.*tar.xz" \
+| cut -d : -f 2,3 \
+| tr -d \" \
+| wget -qi -
+# extract files to /usr/share/themes
+ADW=$(ls adw*.tar.xz)
+tar -xf "$ADW" -C /usr/share/themes
+
 
 ### INSTALLING ICON THEME
 ## Colloid icon theme
-# cd /tmp
-# git clone https://github.com/vinceliuice/Colloid-icon-theme.git
-# cd Colloid-icon-theme 
-# chmod +x install.sh
-# ./install.sh  --theme teal --scheme default
+cd /tmp
+git clone https://github.com/vinceliuice/Colloid-icon-theme.git
+cd Colloid-icon-theme 
+chmod +x install.sh
+./install.sh  --theme teal --scheme default
 
 ## Reversal icon theme
-cd /tmp
-git clone https://github.com/yeyushengfan258/Reversal-icon-theme.git
-cd Reversal-icon-theme
-chmod +x install.sh
-./install.sh
+# cd /tmp
+# git clone https://github.com/yeyushengfan258/Reversal-icon-theme.git
+# cd Reversal-icon-theme
+# chmod +x install.sh
+# ./install.sh
 
 ### Installing extensions
+cd /tmp
+wget https://raw.githubusercontent.com/msm-linux/msm-linux-iso-generator/main/assets/install-gnome-shell-extension.py
+chmod +x install-gnome-shell-extension.py
+
+# extension IDs
+# 5338 - https://extensions.gnome.org/extension/5338/aylurs-widgets/
+# 517 - https://extensions.gnome.org/extension/517/caffeine/
+# 906 - https://extensions.gnome.org/extension/906/sound-output-device-chooser/ [not compatible]
+# 19 - https://extensions.gnome.org/extension/19/user-themes/
+## planned: quick settings tweaker, bookmarked in telegram
+## install GS CONNECT manually
 
 
+for ext in 5338 517 19
+do
+    ./install-gnome-shell-extension.py $ext
+done
 
 
+## Install Plymouth theme
+# theme: cuts
+cd /tmp
+git clone https://github.com/adi1090x/plymouth-themes.git
+cd plymouth-themes
+cd pack_1
+sudo cp -r cuts /usr/share/plymouth/themes/
+sudo update-alternatives --install /usr/share/plymouth/themes/default.plymouth default.plymouth /usr/share/plymouth/themes/cuts/cuts.plymouth 100
+# select the theme manually
+sudo update-alternatives --config default.plymouth
+#(select the number for installed theme, cuts in this case)
+sudo update-initramfs -u
+
+
+## REMINDER!
+# configure gconf for user themes, DONE, may fail
+
+# Setup grub for CD
+# install plymouth theme, done
+# install Grub theme, DONE
+# setup tlp
+# calamares configs
+# system monitoring tool, DONE
+# apps from msm system, inspiration like pinapp, DONE
+# config aylur's widget via gconf. DONE
+# use adw3-gtk theme for better support with Gradience flatpak, DONE
+# use default yaru theme for better default theme, DONE, but may have to manually change value [untested]
+# install fonts rubik, DONE
+# firefox profile
+# create wallpaper packs and then configure in gconf, DONE
+# compile glib gschema gconf, DONE
+# config skel folder for default files
+# setup ocs-url (NOT NOW)
+
+# ERROR: current wallpaper is too big > 200MB, which is bloat. reduce it...
+
+# CREATE MANIFEST: https://help.ubuntu.com/community/LiveCDCustomizationFromScratch, in create-iso.....sh
+
+# customise lsb_release and os_release, DONE
+
+## REMINDER: in gnome 43 there is an option name changed to legacy app, so the gconf value might change
+
+# install custom grub2 theme, DONE
+## UNTESTED with 1080p wallpaper
+cd /tmp
+git clone https://github.com/msm-linux/grub2-themes-mango-customised.git custom-grub
+cd custom-grub
+chmod +x ./install.sh
+sudo ./install.sh -s 1080p -t vimix -i vimix
+
+# installing RUBIK font
+cd /tmp
+git clone https://github.com/googlefonts/rubik.git
+cd rubik
+cd ./fonts/otf
+cp Rubik* /usr/local/share/fonts
+
+# install Wallpapers (CUSTOM)
+cd /tmp
+wget https://raw.githubusercontent.com/msm-linux/msm-linux-iso-generator/main/assets/mango_wallpapers_1.0.deb
+dpkg -i mango_wallpapers_1.0.deb
+
+# compile glib gschema
+cd /tmp
+wget -q https://raw.githubusercontent.com/msm-linux/msm-linux-iso-generator/main/assets/10_ubuntu-settings.gschema.override
+cp ubuntu-settings.gschema.override /usr/share/glib-2.0/schemas/
+glib-compile-schemas /usr/share/glib-2.0/schemas/
+
+### Configuring
+## make variables here
+# /etc/lsb_release
+sed -i 's/Ubuntu 22.10/Mango linux/g' /etc/lsb-release
+# /etc/os-release 
+sed -i 's/Ubuntu 22.10/Mango linux/g' /etc/os-release
 
 
 # removing pkgs (bloats)
